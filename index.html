@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hirebie Chatbot</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body id="main-body">
+  <!-- Floating popup message -->
+  <div id="chat-popup">Hey!! I am here to help you!</div>
+  <!-- Chat Toggle Button -->
+  <div id="chatbot-button" onclick="toggleChatbox()">Ask Kodee</div>
+  <!-- Chat Container -->
+  <div class="container" id="chat-container" style="display:none;">
+    <div class="chatbox">
+
+      <!-- Chatbot Header -->
+      <div class="chatbox-header">
+        <div class="bot-name"><strong>Kodee</strong></div>
+        <div class="header-right">
+          <button id="emoji-feedback-btn" class="emoji-feedback-btn" title="Feedback">
+            <img src="/static/review.png" alt="Feedback Icon" class="feedback-icon" />
+          </button>
+          <button class="clear-history-btn" title="Clear Chat" onclick="clearHistory()">
+            <img src="/static/delete.png" alt="Trash icon" class="bin-icon" />
+          </button>
+          <button id="close-chat-btn" title="Close Chat" class="close-btn">✖</button>
+        </div>
+      </div>
+      <!-- Chat log -->
+      <div id="chatlog" class="chat-log"></div>
+  
+      <!-- Typing indicator -->
+      <div id="typing" class="bot-msg" style="display:none;"></div>
+
+      <!-- Suggestion buttons -->
+      <div id="suggestion-label"></div>
+      <div id="suggestions" class="suggestions"></div>
+
+    <div class="chat-input-wrapper">
+  <input id="userInput" type="text" placeholder="Tell me how can I help you..." />
+  <button id="handleSend"><i class="fas fa-paper-plane"></i></button>
+  <button id="voice-btn"><i class="fas fa-microphone"></i></button>
+</div>
+
+  <!-- Sound -->
+  <audio id="sendSound" src="{{ url_for('static', filename='sounds/pop.mp3') }}"></audio>
+
+  <!-- Rating Modal -->
+  <div id="rating-modal"
+    style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      background: white; border-radius: 10px; box-shadow: 0 4px 16px rgba(0,0,0,0.2); z-index: 9999; padding: 20px; max-width: 400px; width: 90%;">
+    <div style="text-align: right;">
+      <button onclick="closeRatingModal()"
+        style="background: none; border: none; font-size: 18px; cursor: pointer;">&times;</button>
+    </div>
+    <h3 style="text-align: center;">Rate your experience using the Chatbot</h3>
+    <div style="display: flex; justify-content: space-between; margin-top: 15px;">
+      <span>Poor</span>
+      <span>Excellent</span>
+    </div>
+    <div style="display: flex; justify-content: space-between; margin: 10px 0;">
+      <div id="rating-buttons" style="display: flex; gap: 5px; flex-wrap: wrap; justify-content: center;"></div>
+    </div>
+    <textarea id="rating-comment" placeholder="Optional comment..."
+      style="width: 100%; margin-top: 10px; padding: 6px;"></textarea>
+    <button onclick="submitRating()"
+      style="margin-top: 10px; width: 100%; background: #5c67f2; color: white; border: none; padding: 8px 0; border-radius: 5px;">Submit</button>
+  </div>
+
+  <!-- Chatbot JS -->
+  <script src="{{ url_for('static', filename='chatbot.js') }}"></script>
+</body>
+
+</html>
